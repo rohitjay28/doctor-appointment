@@ -86,7 +86,7 @@ function Footer() {
       </div>
 
       <div className="ft-copyright">
-        <p>© 2000-2026 Health+. All rights reserved.</p>
+        <p>© 2000-2026 Doctor-Appointment. All rights reserved.</p>
 
         <ul className="ft-social-links">
           <li>

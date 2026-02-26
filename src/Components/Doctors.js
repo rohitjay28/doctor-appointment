@@ -16,7 +16,7 @@ function Doctors() {
 
         <p className="dt-description">
           Meet our exceptional team of specialist doctors, dedicated to
-          providing top-notch healthcare services at Health Plus. Trust in their
+          providing top-notch healthcare services at doctor-appointment. Trust in their
           knowledge and experience to lead you towards a healthier and happier
           life.
         </p>

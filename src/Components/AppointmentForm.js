@@ -74,7 +74,7 @@ function AppointmentForm() {
     <div className="appointment-form-section">
       <h1 className="legal-siteTitle">
         <Link to="/">
-          Health <span className="legal-siteSign">+</span>
+          Doctor Appointment <span className="legal-siteSign">+</span>
         </Link>
       </h1>
 
