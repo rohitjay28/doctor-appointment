@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/doctor-appointment/static/css/main.c282a9d6.css",
-    "main.js": "/doctor-appointment/static/js/main.9362438c.js",
+    "main.js": "/doctor-appointment/static/js/main.e9e9f2e1.js",
     "static/media/doctor-picture.png": "/doctor-appointment/static/media/doctor-picture.0261bb4efe7a9075c56a.png",
     "static/media/doctor-group.png": "/doctor-appointment/static/media/doctor-group.01394386d8270bd40bc1.png",
     "static/media/doctor-book-appointment.png": "/doctor-appointment/static/media/doctor-book-appointment.edb3f4ac282ff3fefaec.png",
@@ -11,10 +11,10 @@
     "static/media/Dr.-Nagendra-Mahendra.png": "/doctor-appointment/static/media/Dr.-Nagendra-Mahendra.72db48676b293133a693.png",
     "index.html": "/doctor-appointment/index.html",
     "main.c282a9d6.css.map": "/doctor-appointment/static/css/main.c282a9d6.css.map",
-    "main.9362438c.js.map": "/doctor-appointment/static/js/main.9362438c.js.map"
+    "main.e9e9f2e1.js.map": "/doctor-appointment/static/js/main.e9e9f2e1.js.map"
   },
   "entrypoints": [
     "static/css/main.c282a9d6.css",
-    "static/js/main.9362438c.js"
+    "static/js/main.e9e9f2e1.js"
   ]
 }
