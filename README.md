@@ -19,4 +19,4 @@ Welcome to the doctor-appointment project repository! This is a React-based webs
 
 ## Deployment
 
-The website is deployed using GitHub Pages and can be accessed at https://github.com/rohitjay28/doctor-appointment.git
+The website is deployed using GitHub Pages and can be accessed at https://rohitjay28.github.io/doctor-appointment/
