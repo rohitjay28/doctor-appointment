@@ -23,9 +23,10 @@ function AppointmentForm() {
     const errors = {};
     if (!patientName.trim()) {
       errors.patientName = "Patient name is required";
-    } else if (patientName.trim().length < 8) {
-      errors.patientName = "Patient name must be at least 8 characters";
-    }
+     } //else if (patientName.trim().length < 8) {
+    //   errors.patientName = "Patient name must be at least 8 characters";
+    // }
+    
 
     if (!patientNumber.trim()) {
       errors.patientNumber = "Patient phone number is required";
@@ -159,7 +160,7 @@ function AppointmentForm() {
       </div>
 
       <div className="legal-footer">
-        <p>© 2013-2023 Health+. All rights reserved.</p>
+        <p>© 2000-2026 Health+. All rights reserved.</p>
       </div>
 
       <ToastContainer autoClose={5000} limit={1} closeButton={false} />

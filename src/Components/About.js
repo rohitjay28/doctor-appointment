@@ -15,7 +15,7 @@ function About() {
           <span>About Us</span>
         </h3>
         <p className="about-description">
-          Welcome to Health Plus, your trusted partner for accessible and
+          Welcome to Doctor Appointment, your trusted partner for accessible and
           personalized healthcare. Our expert doctors offer online consultations
           and specialized services, prioritizing your well-being. Join us on
           this journey towards a healthier you.
