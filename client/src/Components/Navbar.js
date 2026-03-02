@@ -1,31 +1,17 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCommentDots,
   faBars,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import "../Styles/Navbar.css";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const [nav, setNav] = useState(false);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const navigate = useNavigate();
 
   const openNav = () => {
     setNav(!nav);
-  };
-
-  const handleChatBtnClick = () => {
-    if (!isButtonDisabled) {
-      toast.info("Experiencing high traffic, Please wait a moment.", {
-        position: toast.POSITION.TOP_CENTER,
-        onOpen: () => setIsButtonDisabled(true),
-        onClose: () => setIsButtonDisabled(false),
-      });
-    }
   };
 
   return (
@@ -79,13 +65,8 @@ function Navbar() {
             Doctors
           </span>
         </li>
-
-        {/* Admin Link — beside Doctors */}
         <li>
-          <Link
-            to="/admin/login"
-            className="navbar-links admin-link"
-          >
+          <Link to="/admin/login" className="navbar-links admin-link">
             🔐 Admin
           </Link>
         </li>
@@ -98,38 +79,12 @@ function Navbar() {
         </div>
 
         <ul className="mobile-navbar-links">
-          <li>
-            <Link onClick={openNav} to="/">
-              Home
-            </Link>
-          </li>
-          <li>
-            <a onClick={openNav} href="#services">
-              Services
-            </a>
-          </li>
-          <li>
-            <a onClick={openNav} href="#about">
-              About
-            </a>
-          </li>
-          <li>
-            <a onClick={openNav} href="#reviews">
-              Reviews
-            </a>
-          </li>
-          <li>
-            <a onClick={openNav} href="#doctors">
-              Doctors
-            </a>
-          </li>
-          <li>
-            <a onClick={openNav} href="#contact">
-              Contact
-            </a>
-          </li>
-
-          {/* Admin Link in Mobile */}
+          <li><Link onClick={openNav} to="/">Home</Link></li>
+          <li><a onClick={openNav} href="#services">Services</a></li>
+          <li><a onClick={openNav} href="#about">About</a></li>
+          <li><a onClick={openNav} href="#reviews">Reviews</a></li>
+          <li><a onClick={openNav} href="#doctors">Doctors</a></li>
+          <li><a onClick={openNav} href="#contact">Contact</a></li>
           <li>
             <Link onClick={openNav} to="/admin/login">
               🔐 Admin

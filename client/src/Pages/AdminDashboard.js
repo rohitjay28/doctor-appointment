@@ -18,11 +18,9 @@ const STATUS_ICON = {
 
 const MODE_ICON = { "In-Person": "🏥", "Video Call": "📹", "Voice Call": "📞" };
 
-// ── Auto-complete logic ──────────────────────────────────────────────────────
 const autoCompleteAppointments = (appointments) => {
   const now = new Date();
   return appointments.map(a => {
-    // Parse date like "2026-03-02 at 02:00 PM"
     const raw = a.appointmentDate?.replace(" at ", " ");
     const apptDate = new Date(raw);
     if (!isNaN(apptDate) && apptDate < now) {
@@ -33,7 +31,6 @@ const autoCompleteAppointments = (appointments) => {
   });
 };
 
-// ── Component ────────────────────────────────────────────────────────────────
 function AdminDashboard() {
   const navigate = useNavigate();
   const token    = localStorage.getItem("adminToken");
@@ -54,7 +51,7 @@ function AdminDashboard() {
   const PER_PAGE = 6;
 
   const api = axios.create({
-    baseURL: "http://localhost:5000/api",
+    baseURL: process.env.REACT_APP_API_URL || "http://localhost:5000/api",
     headers: { Authorization: `Bearer ${token}` },
   });
 
@@ -63,9 +60,7 @@ function AdminDashboard() {
     setTimeout(() => setToast(null), 3000);
   };
 
-  // Compute stats from appointments array
   const computeStats = (appts) => {
-    const now   = new Date();
     const today = new Date(); today.setHours(0, 0, 0, 0);
     const todayEnd = new Date(); todayEnd.setHours(23, 59, 59, 999);
     return {
@@ -86,20 +81,15 @@ function AdminDashboard() {
       setLoading(true);
       const res = await api.get("/admin/appointments");
       const raw  = res.data.appointments;
-
-      // Auto-complete past appointments
       const processed = autoCompleteAppointments(raw);
       setAppointments(processed);
       setStats(computeStats(processed));
-
-      // Save auto-completed statuses back to DB
       processed.forEach((a, i) => {
         if (raw[i].status !== a.status) {
           api.patch(`/admin/appointments/${a._id}/status`, { status: a.status })
             .catch(() => {});
         }
       });
-
     } catch (err) {
       if (err.response?.status === 401) {
         localStorage.removeItem("adminToken");
@@ -109,7 +99,8 @@ function AdminDashboard() {
       setLoading(false);
       setTimeout(() => setMounted(true), 100);
     }
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navigate]);
 
   useEffect(() => {
     if (!token) { navigate("/admin/login"); return; }
@@ -146,7 +137,6 @@ function AdminDashboard() {
     } catch { showToast("Failed to delete", "error"); }
   };
 
-  // Filter + sort + paginate
   const depts    = ["All", ...new Set(appointments.map(a => a.department))];
   const filtered = appointments
     .filter(a => {
@@ -190,14 +180,12 @@ function AdminDashboard() {
     <div style={S.root}>
       <div style={S.bgGradient} />
 
-      {/* Toast */}
       {toast && (
         <div style={{ ...S.toast, background: toast.type === "error" ? "#ef4444" : "#10b981" }}>
           {toast.type === "error" ? "🗑️" : "✅"} {toast.msg}
         </div>
       )}
 
-      {/* Delete Modal */}
       {deleteConfirm && (
         <div style={S.overlay}>
           <div style={S.modal}>
@@ -212,7 +200,6 @@ function AdminDashboard() {
         </div>
       )}
 
-      {/* Sidebar */}
       <aside style={{ ...S.sidebar, width: sidebarOpen ? 240 : 70 }}>
         <div style={S.sidebarTop}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -244,10 +231,7 @@ function AdminDashboard() {
         </button>
       </aside>
 
-      {/* Main */}
       <main style={{ ...S.main, marginLeft: sidebarOpen ? 240 : 70 }}>
-
-        {/* Header */}
         <header style={{ ...S.header, opacity: mounted ? 1 : 0, transform: mounted ? "translateY(0)" : "translateY(-20px)", transition: "all .5s ease" }}>
           <div>
             <h1 style={S.headerTitle}>Admin Dashboard</h1>
@@ -281,7 +265,6 @@ function AdminDashboard() {
           </div>
         ) : (
           <>
-            {/* Stats — now 6 cards including Completed */}
             <div style={S.statsGrid}>
               {[
                 { label: "Total Bookings", value: stats.total,     icon: "📋", color: "#0ea5e9", delay: 0   },
@@ -306,7 +289,6 @@ function AdminDashboard() {
               ))}
             </div>
 
-            {/* Filters */}
             <div style={S.filterRow}>
               <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
                 <span style={{ fontSize: 12, color: "#64748b", fontWeight: 600 }}>Status:</span>
@@ -325,13 +307,10 @@ function AdminDashboard() {
               <span style={{ marginLeft: "auto", fontSize: 12, color: "#64748b" }}>{filtered.length} records</span>
             </div>
 
-            {/* Table */}
             <div style={{ ...S.tableCard, opacity: mounted ? 1 : 0, transform: mounted ? "translateY(0)" : "translateY(20px)", transition: "all .6s ease .5s" }}>
               <div style={{ padding: "20px 24px", borderBottom: "1px solid rgba(255,255,255,0.07)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <h2 style={{ fontSize: 16, fontWeight: 700 }}>📋 Appointment Records</h2>
-                <div style={{ fontSize: 12, color: "#64748b" }}>
-                  🏁 Past appointments auto-marked as Completed
-                </div>
+                <div style={{ fontSize: 12, color: "#64748b" }}>🏁 Past appointments auto-marked as Completed</div>
               </div>
 
               <div style={{ overflowX: "auto" }}>
@@ -339,14 +318,14 @@ function AdminDashboard() {
                   <thead>
                     <tr>
                       {[
-                        { label: "#",           field: null             },
-                        { label: "Patient",     field: "patientName"    },
-                        { label: "Doctor",      field: "doctor"         },
-                        { label: "Department",  field: "department"     },
-                        { label: "Date & Time", field: "appointmentDate"},
-                        { label: "Mode",        field: null             },
-                        { label: "Status",      field: "status"         },
-                        { label: "Actions",     field: null             },
+                        { label: "#",           field: null              },
+                        { label: "Patient",     field: "patientName"     },
+                        { label: "Doctor",      field: "doctor"          },
+                        { label: "Department",  field: "department"      },
+                        { label: "Date & Time", field: "appointmentDate" },
+                        { label: "Mode",        field: null              },
+                        { label: "Status",      field: "status"          },
+                        { label: "Actions",     field: null              },
                       ].map(col => (
                         <th key={col.label} onClick={() => col.field && handleSort(col.field)} style={{ ...S.th, cursor: col.field ? "pointer" : "default" }}>
                           {col.label}{col.field && <SortIcon field={col.field} />}
@@ -397,7 +376,6 @@ function AdminDashboard() {
                 </table>
               </div>
 
-              {/* Pagination */}
               {totalPages > 1 && (
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: 16, borderTop: "1px solid rgba(255,255,255,0.07)" }}>
                   <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} style={S.pageBtn}>← Prev</button>
@@ -409,7 +387,6 @@ function AdminDashboard() {
               )}
             </div>
 
-            {/* Dept Breakdown */}
             <div style={S.deptGrid}>
               {Object.entries(deptBreakdown).map(([dept, count], i) => {
                 const colors = ["#0ea5e9", "#10b981", "#f59e0b", "#8b5cf6"];
