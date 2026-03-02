@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-const appointmentRoutes = require("./routes/appointments");
+const appointmentRoutes = require("./routes/Appointments");
 const authRoutes        = require("./routes/Auth");
 const adminRoutes       = require("./routes/Admin");
 
