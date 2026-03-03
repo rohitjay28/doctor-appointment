@@ -109,7 +109,7 @@ function AdminDashboard() {
 
   const handleLogout = () => {
     localStorage.removeItem("adminToken");
-    navigate("/admin/login");
+    navigate("/", {replace: true}); //go to homepage
   };
 
   const handleStatusChange = async (id, status) => {
