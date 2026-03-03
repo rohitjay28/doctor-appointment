@@ -14,13 +14,13 @@ A full-stack MERN web application for booking and managing doctor appointments.
 ![Home Page](screenshots/home.png)
 
 ### Book Appointment
-![Book Appointment](screenshots/book_appointment.png)
+![Book Appointment](screenshots/book appointment.png)
 
 ### Booking Confirmation and Email
-![Booking Confirmation](screenshots/booking_confirmation_mail.png)
+![Booking Confirmation](screenshots/booking confirmation mail.png)
 
 ### Admin Dashboard
-![Admin Dashboard](screenshots/admin_dashboard.png)
+![Admin Dashboard](screenshots/admin dashboard.png)
 
 ### Meet Our Doctors
 ![Doctors](screenshots/doctors.png)
@@ -29,13 +29,13 @@ A full-stack MERN web application for booking and managing doctor appointments.
 ![Services](screenshots/services.png)
 
 ### About Us
-![About Us](screenshots/about_us.png)
+![About Us](screenshots/about us.png)
 
 ### Why Choose Health
-![Why Choose Health](screenshots/y_choose_health.png)
+![Why Choose Health](screenshots/y choose health.png)
 
 ### Reviews and Ratings
-![Reviews](screenshots/reviews_ratings.png)
+![Reviews](screenshots/reviews,ratings.png)
 
 ### Footer
 ![Footer](screenshots/footer.png)
